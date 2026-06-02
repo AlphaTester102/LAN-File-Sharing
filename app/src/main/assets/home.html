@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>File Sharing</h1>
+
+<div class="info-container" style="text-align: center;">
+    <h3>Start Server</h3>
+    <p style="margin-bottom: 20px;">Host your own server and share files.</p>
+    <button class="nav-btn" style="font-size: 20px; width: 250px;" onclick="showServerOptions()">Start Server</button>
+</div>
+
+<!-- Modal backdrop -->
+<div id="server-modal-backdrop" onclick="hideServerOptions()"></div>
+
+<!-- Server type modal -->
+<div id="server-modal">
+    <h2>Choose Server Type</h2>
+
+    <button class="nav-btn" style="width: 100%; margin-bottom: 8px;" onclick="startPublicServer()">Public</button>
+    <p style="color: #aaa; font-size: 0.8rem; margin-bottom: 16px;">Anyone on the network can join.</p>
+
+    <hr>
+
+    <label>Private – set a password:</label>
+    <input type="password" id="server-password" placeholder="Enter password">
+    <button class="nav-btn" style="width: 100%; margin-bottom: 8px;" onclick="startPrivateServer()">Private</button>
+
+    <button class="modal-cancel" onclick="hideServerOptions()">Cancel</button>
+</div>
+
+<div class="info-container" style="text-align: center;">
+    <h3>Join Server</h3>
+    <p style="margin-bottom: 20px;">Join an existing server on your network.</p>
+    <a href="server.html" class="nav-btn" style="font-size: 20px; width: 250px; text-decoration: none; display: inline-block; line-height: normal;">Join Server</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

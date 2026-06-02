@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Files</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Available Files</h1>
+    <div class="nav-container">
+        <a href="/" class="nav-btn" style="background-color: #444; color: #fff;">Back to Home</a>
+    </div>
+
+    <div class="controls">
+        <input type="text" id="search" placeholder="Search files..." oninput="filterFiles()">
+        <select id="sort" onchange="sortFiles()">
+            <option value="name">Sort by Name</option>
+            <option value="size">Sort by Size</option>
+        </select>
+    </div>
+
+    <div class="download-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="fileTable">
+                <!-- Files will be loaded here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

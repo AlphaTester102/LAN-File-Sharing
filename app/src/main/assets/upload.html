@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAN File Sharing</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<h1>LAN File Sharing</h1>
+
+<div class="info-container">
+    <p>Other devices on the same network can connect to upload/download files.</p>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
+        <p style="margin: 0;">URL: <a id="server-url" href="#" target="_blank">Loading...</a></p>
+    </div>
+</div>
+
+<div class="upload-container">
+    <div class="drop-area" id="drop-area">
+        <span>Drag & drop files here or click to upload</span><br />
+        <button class="browse-btn" onclick="document.getElementById('file-input').click();">Browse</button>
+    </div>
+
+    <input type="file" id="file-input" multiple style="display: none;" />
+    <ul class="file-list" id="file-list"></ul>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+</div>
+
+<div class="nav-container" style="text-align: center; margin-top: 20px;">
+    <a href="/files" class="nav-btn">View Uploaded Files</a>
+    <br><br>
+    <a href="/" class="nav-btn" style="background-color: #444; color: #fff;">Back to Home</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+
+</html>

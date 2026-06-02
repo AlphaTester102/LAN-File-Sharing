@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Join Server</h1>
+
+<div class="info-container" style="text-align: center;">
+    <p style="margin-bottom: 20px;">Enter IP manually or scan QR code.</p>
+    <input type="text" id="ip" placeholder="Enter IP (e.g. 192.168.1.5)" style="margin-bottom: 20px; width: 250px;">
+    <br>
+    <button class="nav-btn" style="font-size: 20px; width: 250px; margin-bottom: 20px;" onclick="joinServer()">Join Manually</button>
+    <br>
+    <button class="nav-btn" style="font-size: 20px; width: 250px;" onclick="scanQR()">Scan QR Code</button>
+</div>
+
+<div class="nav-container" style="text-align: center;">
+    <a href="home.html" class="nav-btn" style="background-color: #444; color: #fff; width: 250px;">Back</a>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

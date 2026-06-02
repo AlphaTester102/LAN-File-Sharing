@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Server – Enter Password</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Private Server</h1>
+
+<div class="info-container" style="text-align: center;">
+    <p style="margin-bottom: 20px; color: #aaa;">This server is password-protected. Enter the password to join.</p>
+    <input type="password" id="pw-input" placeholder="Enter password" autocomplete="current-password">
+    <br>
+    <button class="nav-btn" style="width: 220px;" onclick="login()">Join</button>
+    <p id="error-msg">Incorrect password. Please try again.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
