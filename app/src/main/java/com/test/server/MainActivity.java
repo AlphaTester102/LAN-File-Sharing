@@ -40,7 +40,6 @@ import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.util.Enumeration;
 
-// MainActivity serves as the entry point for the app, managing the WebView and server interactions.
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -152,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webView.loadUrl("file:///android_asset/home.html");
+
+        try {
+            EmbeddedServer tempServer = new EmbeddedServer(MainActivity.this, serverPort);
+            tempServer.clearUploads();
+        } catch (Exception e) {
+            Log.w(TAG, "Failed to clear uploads on startup", e);
+        }
     }
 
     public class WebAppInterface {
@@ -295,14 +301,12 @@ public class MainActivity extends AppCompatActivity {
             try (ServerSocket ss = new ServerSocket(port)) {
                 return ss.getLocalPort();
             } catch (IOException ignored) {
-                // port in use, try next
             }
         }
-        // fallback: let OS assign an ephemeral port
         try (ServerSocket ss = new ServerSocket(0)) {
             return ss.getLocalPort();
         } catch (IOException e) {
-            return startPort; // last resort
+            return startPort;
         }
     }
 

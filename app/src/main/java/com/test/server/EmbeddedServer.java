@@ -2,6 +2,7 @@ package com.test.server;
 
 import android.content.Context;
 import fi.iki.elonen.NanoHTTPD;
+import android.util.Log;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,7 +33,11 @@ public class EmbeddedServer extends NanoHTTPD {
     public void clearUploads() {
         File[] files = uploadsDir.listFiles();
         if (files != null) {
-            for (File f : files) f.delete();
+            for (File f : files) {
+                if (!f.delete()) {
+                    Log.w("EmbeddedServer", "Failed to delete upload: " + f.getAbsolutePath());
+                }
+            }
         }
     }
 
@@ -63,9 +68,7 @@ public class EmbeddedServer extends NanoHTTPD {
     public Response serve(IHTTPSession session) {
         String uri = session.getUri();
 
-        // Auth gating for private servers (non-localhost clients)
         if (serverMode == ServerMode.PRIVATE && !isLocalhost(session)) {
-            // QR token: auto-authenticate without password prompt (valid for the whole session)
             String qrToken = session.getParms().get("qr_token");
             if (qrToken != null && validQrTokens.contains(qrToken)) {
                 String sessionToken = UUID.randomUUID().toString();
@@ -87,7 +90,6 @@ public class EmbeddedServer extends NanoHTTPD {
                     return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "Server error");
                 }
             }
-            // Allow CSS/JS so the login page renders correctly
             if (!uri.endsWith(".css") && !uri.endsWith(".js") && !isAuthenticated(session)) {
                 try { return serveAsset("login.html"); } catch (IOException e) {
                     return newFixedLengthResponse(Response.Status.INTERNAL_ERROR, "text/plain", "Server error");
@@ -194,7 +196,6 @@ public class EmbeddedServer extends NanoHTTPD {
 
     private Response serveFile(String filename) throws IOException {
         File file = new File(uploadsDir, filename);
-        // Prevent path traversal
         if (!file.getCanonicalPath().startsWith(uploadsDir.getCanonicalPath() + File.separator)
                 && !file.getCanonicalPath().equals(uploadsDir.getCanonicalPath())) {
             return newFixedLengthResponse(Response.Status.FORBIDDEN, "text/plain", "Forbidden");
@@ -252,7 +253,6 @@ public class EmbeddedServer extends NanoHTTPD {
         File file;
         try {
             file = new File(uploadsDir, filename);
-            // Prevent path traversal
             if (!file.getCanonicalPath().startsWith(uploadsDir.getCanonicalPath() + File.separator)) {
                 return newFixedLengthResponse(Response.Status.FORBIDDEN, "application/json", "{\"error\":\"Forbidden\"}");
             }
@@ -335,6 +335,7 @@ public class EmbeddedServer extends NanoHTTPD {
         if (lowerName.endsWith(".jpg") || lowerName.endsWith(".jpeg")) return "image/jpeg";
         if (lowerName.endsWith(".gif")) return "image/gif";
         if (lowerName.endsWith(".pdf")) return "application/pdf";
+        if (lowerName.endsWith(".epub")) return "application/epub+zip";
         if (lowerName.endsWith(".txt")) return "text/plain";
         if (lowerName.endsWith(".zip")) return "application/zip";
         return "application/octet-stream";
