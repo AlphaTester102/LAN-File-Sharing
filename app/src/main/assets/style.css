@@ -109,7 +109,6 @@ input[type="text"]:focus {
   transition: width 0.3s ease;
 }
 
-/* Table Styles */
 .download-container {
   overflow-x: auto;
 }
@@ -143,7 +142,6 @@ tr:hover {
   flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn, .nav-btn, .btn-download, .btn-rename, .btn-delete, .browse-btn {
   display: inline-block;
   padding: 12px 24px;
@@ -236,7 +234,6 @@ tr:hover {
   }
 }
 
-/* ── Modal (home.html) ─────────────────────────────────────────────── */
 #server-modal-backdrop {
     display: none;
     position: fixed;
@@ -278,7 +275,6 @@ tr:hover {
     cursor: pointer; font-size: 0.9rem;
 }
 
-/* ── Login page (login.html) ───────────────────────────────────────── */
 #error-msg {
     color: #ff5555;
     margin-top: 14px;
@@ -302,8 +298,6 @@ tr:hover {
 
 #pw-input:focus { border-color: #00c3ff; box-shadow: 0 0 8px #00c3ff33; }
 
-
-/* ── Global toast notification ───────────────────────────────────── */
 #global-toast {
   position: fixed;
   left: 50%;

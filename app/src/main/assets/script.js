@@ -1,8 +1,3 @@
-/* =====================================================================
-   script.js – single consolidated script for all pages
-   ===================================================================== */
-
-// ── Shared: ownership check ──────────────────────────────────────────
 let isOwner = false;
 
 async function checkOwnership() {
@@ -15,7 +10,6 @@ async function checkOwnership() {
     }
 }
 
-// ── server.html / index.html ─────────────────────────────────────────
 function joinServer() {
     const ip = document.getElementById('ip').value;
     if (ip) {
@@ -40,7 +34,6 @@ function displayQRCode(base64Data) {
     }
 }
 
-// ── home.html ────────────────────────────────────────────────────────
 function showServerOptions() {
     document.getElementById('server-modal').style.display = 'block';
     document.getElementById('server-modal-backdrop').style.display = 'block';
@@ -67,13 +60,11 @@ function startPrivateServer() {
     Android.startServer('private', pw);
 }
 
-// ── login.html ───────────────────────────────────────────────────────
 async function login() {
     const password = document.getElementById('pw-input').value;
     if (!password) return;
 
     try {
-        // Use URL-encoded body so NanoHTTPD reliably parses it via getParms()
         const res = await fetch('/auth', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -91,7 +82,6 @@ async function login() {
     }
 }
 
-// ── files.html ───────────────────────────────────────────────────────
 let filesData = [];
 
 async function loadFiles() {
@@ -159,7 +149,6 @@ function sortFiles() {
     renderFiles(filesData);
 }
 
-// ── upload.html ──────────────────────────────────────────────────────
 function initUploadPage() {
     const dropArea = document.getElementById('drop-area');
     if (!dropArea) return;
@@ -238,7 +227,6 @@ function initUploadPage() {
                     el.href = data.url;
                     el.target = '_blank';
 
-                    // When user clicks the link, copy the URL but stay on the page.
                     el.addEventListener('click', function (e) {
                         e.preventDefault();
                         copyTextToClipboard(data.url)
@@ -310,27 +298,22 @@ function removeFile(button, filename) {
         .catch(error => console.error('Error deleting file:', error));
 }
 
-// ── Page initialisation dispatcher ───────────────────────────────────
 document.addEventListener('DOMContentLoaded', async function () {
 
-    // index.html – request QR code
     if (document.getElementById('qr-container') && typeof Android !== 'undefined' && Android.requestQRCode) {
         Android.requestQRCode();
     }
 
-    // files.html
     if (document.getElementById('fileTable')) {
         await checkOwnership();
         loadFiles();
     }
 
-    // upload.html
     if (document.getElementById('drop-area')) {
         await checkOwnership();
         initUploadPage();
     }
 
-    // home.html – password field enter-key
     const serverPasswordInput = document.getElementById('server-password');
     if (serverPasswordInput) {
         serverPasswordInput.addEventListener('keypress', function (e) {
@@ -338,7 +321,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    // login.html – password field enter-key
     const pwInput = document.getElementById('pw-input');
     if (pwInput) {
         pwInput.addEventListener('keypress', function (e) {
